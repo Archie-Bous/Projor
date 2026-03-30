@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projor — AI Project Roadmap Builder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ── Top bar ── -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <span class="logo-icon">🗺️</span>
+      <span class="logo-text">Projor</span>
+    </div>
+    <div class="topbar-actions">
+      <button id="btn-preview"  class="btn btn-ghost" disabled title="Preview roadmap">👁 Preview</button>
+      <button id="btn-generate" class="btn btn-primary" disabled title="Download roadmap as HTML">⬇ Download HTML</button>
+    </div>
+  </header>
+
+  <main class="app-layout">
+    <!-- ── Chat panel ── -->
+    <section class="chat-panel" aria-label="Roadmap chat assistant">
+      <div class="chat-messages" id="chat-messages" role="log" aria-live="polite"></div>
+
+      <div class="chat-input-area">
+        <textarea
+          id="chat-input"
+          class="chat-input"
+          rows="2"
+          placeholder="Describe your project… (Shift+Enter for new line, Enter to send)"
+          aria-label="Chat input"
+        ></textarea>
+        <button id="btn-send" class="btn btn-primary send-btn" aria-label="Send message">
+          <span id="send-icon">➤</span>
+          <span id="send-spinner" class="spinner hidden"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── Preview panel ── -->
+    <section class="preview-panel" aria-label="Roadmap preview">
+      <div class="preview-placeholder" id="preview-placeholder">
+        <div class="placeholder-icon">🗺️</div>
+        <h2>Your roadmap will appear here</h2>
+        <p>Chat with the assistant on the left to build your project roadmap. The live preview will update as you go.</p>
+      </div>
+      <iframe
+        id="preview-frame"
+        class="preview-frame hidden"
+        title="Roadmap preview"
+        sandbox="allow-same-origin"
+      ></iframe>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
