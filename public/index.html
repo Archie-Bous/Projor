@@ -10,41 +10,92 @@
   <!-- ── Top bar ── -->
   <header class="topbar">
     <div class="topbar-brand">
-      <span class="logo-icon">🗺️</span>
-      <span class="logo-text">Projor</span>
+      <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 6h18M3 12h12M3 18h8"/>
+      </svg>
+      <span class="brand-name">Projor</span>
     </div>
+
+    <div class="topbar-controls">
+      <label class="ctrl-group" title="Roadmap layout style">
+        <span class="ctrl-label">Layout</span>
+        <select id="style-select" class="ctrl-select">
+          <option value="timeline">Timeline</option>
+          <option value="columns">Columns</option>
+          <option value="vertical">Vertical</option>
+        </select>
+      </label>
+
+      <label class="ctrl-group" title="Colour theme">
+        <span class="ctrl-label">Theme</span>
+        <select id="theme-select" class="ctrl-select">
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="purple">Purple</option>
+          <option value="orange">Orange</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+
     <div class="topbar-actions">
-      <button id="btn-preview"  class="btn btn-ghost" disabled title="Preview roadmap">👁 Preview</button>
-      <button id="btn-generate" class="btn btn-primary" disabled title="Download roadmap as HTML">⬇ Download HTML</button>
+      <button id="btn-preview"  class="btn btn-ghost" disabled title="Open in new tab">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/></svg>
+        Preview
+      </button>
+      <button id="btn-generate" class="btn btn-primary" disabled title="Download roadmap as HTML">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M10 3v10m0 0l-3.5-3.5M10 13l3.5-3.5M4 17h12"/></svg>
+        Download HTML
+      </button>
     </div>
   </header>
 
   <main class="app-layout">
     <!-- ── Chat panel ── -->
     <section class="chat-panel" aria-label="Roadmap chat assistant">
+      <div class="chat-header">
+        <div class="chat-header-avatar">P</div>
+        <div>
+          <div class="chat-header-name">Projor Assistant</div>
+          <div class="chat-header-sub">AI-powered roadmap builder</div>
+        </div>
+      </div>
+
       <div class="chat-messages" id="chat-messages" role="log" aria-live="polite"></div>
 
       <div class="chat-input-area">
         <textarea
           id="chat-input"
           class="chat-input"
-          rows="2"
-          placeholder="Describe your project… (Shift+Enter for new line, Enter to send)"
+          rows="1"
+          placeholder="Describe your project…"
           aria-label="Chat input"
         ></textarea>
-        <button id="btn-send" class="btn btn-primary send-btn" aria-label="Send message">
-          <span id="send-icon">➤</span>
+        <button id="btn-send" class="send-btn" aria-label="Send message">
+          <svg id="send-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.93 2.05a1 1 0 011.08.07l13 9a1 1 0 010 1.76l-13 9A1 1 0 012 21V3a1 1 0 01.93-.95zM4 5.62V14.38L14.27 10 4 5.62z" transform="translate(0 -1)"/></svg>
           <span id="send-spinner" class="spinner hidden"></span>
         </button>
       </div>
+      <p class="input-hint">Enter to send · Shift+Enter for new line</p>
     </section>
 
     <!-- ── Preview panel ── -->
     <section class="preview-panel" aria-label="Roadmap preview">
       <div class="preview-placeholder" id="preview-placeholder">
-        <div class="placeholder-icon">🗺️</div>
+        <svg class="placeholder-graphic" viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="8" y="24" width="224" height="112" rx="10" fill="#e2e8f0"/>
+          <rect x="20" y="48" width="60" height="72" rx="6" fill="#94a3b8"/>
+          <rect x="90" y="36" width="90" height="72" rx="6" fill="#94a3b8"/>
+          <rect x="190" y="56" width="30" height="52" rx="6" fill="#94a3b8"/>
+          <rect x="8" y="144" width="224" height="2" rx="1" fill="#cbd5e1"/>
+        </svg>
         <h2>Your roadmap will appear here</h2>
-        <p>Chat with the assistant on the left to build your project roadmap. The live preview will update as you go.</p>
+        <p>Chat with the assistant on the left to build your project roadmap. The preview updates automatically as you go.</p>
+        <div class="placeholder-styles">
+          <span class="ps-pill ps-active" data-style="timeline">Timeline</span>
+          <span class="ps-pill" data-style="columns">Columns</span>
+          <span class="ps-pill" data-style="vertical">Vertical</span>
+        </div>
       </div>
       <iframe
         id="preview-frame"

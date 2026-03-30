@@ -34,7 +34,8 @@ Guide the user through these topics in a natural, helpful way:
 3. Project phases (e.g. Discovery, Design, Development, Launch) with their own start/end dates
 4. Key milestones within each phase, their dates, and who is responsible
 5. Team members and their roles
-6. Visual theme preference: blue (default), green, purple, orange, or dark
+6. Visual theme: blue (default), green, purple, orange, or dark
+7. Layout style: timeline (horizontal card flow — default), columns (quarterly kanban board), or vertical (centre-spine stepper)
 
 After EVERY user message — even short ones — you MUST output an updated JSON block at the very end of your reply in the following exact format:
 \`\`\`json
@@ -44,6 +45,7 @@ After EVERY user message — even short ones — you MUST output an updated JSON
   "startDate": "YYYY-MM-DD",
   "endDate": "YYYY-MM-DD",
   "theme": "blue",
+  "style": "timeline",
   "phases": [
     {
       "name": "Phase name",
@@ -64,9 +66,10 @@ After EVERY user message — even short ones — you MUST output an updated JSON
 Rules:
 - Keep unknown fields as empty strings or empty arrays, never omit them.
 - Dates must always be "YYYY-MM-DD" or an empty string.
+- "style" must be one of: "timeline", "columns", "vertical". Default is "timeline".
 - If the user hasn't provided a value yet, use sensible defaults (e.g. today for start, +6 months for end).
 - Be concise, warm, and encouraging. Ask one or two questions at a time — don't overwhelm the user.
-- When you feel you have enough information (at minimum a project name and one phase), suggest they can click "Generate Roadmap" to download the HTML file.`;
+- When you feel you have enough information (at minimum a project name and one phase), suggest they can click "Download HTML" to export their roadmap.`;
 
 // ── POST /api/chat ────────────────────────────────────────────────────────────
 app.post('/api/chat', async (req, res) => {

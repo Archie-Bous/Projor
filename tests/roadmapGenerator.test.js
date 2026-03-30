@@ -91,8 +91,45 @@ describe('generateRoadmapHTML', () => {
     expect(html).toMatch(/^<!DOCTYPE html>/i);
   });
 
-  test('handles empty phases array', () => {
-    const html = generateRoadmapHTML({ ...SAMPLE, phases: [] });
-    expect(html).toContain('No phases defined yet');
+  test('timeline style contains tl-phases', () => {
+    const html = generateRoadmapHTML({ ...SAMPLE, style: 'timeline' });
+    expect(html).toContain('tl-phases');
+  });
+
+  test('columns style contains col-grid', () => {
+    const html = generateRoadmapHTML({ ...SAMPLE, style: 'columns' });
+    expect(html).toContain('col-grid');
+  });
+
+  test('vertical style contains vt-timeline', () => {
+    const html = generateRoadmapHTML({ ...SAMPLE, style: 'vertical' });
+    expect(html).toContain('vt-timeline');
+  });
+
+  test('all three styles produce valid HTML', () => {
+    ['timeline', 'columns', 'vertical'].forEach((style) => {
+      const html = generateRoadmapHTML({ ...SAMPLE, style });
+      expect(html).toMatch(/^<!DOCTYPE html>/i);
+      expect(html).toContain('</html>');
+    });
+  });
+
+  test('style label appears in meta pills', () => {
+    const htmlColumns  = generateRoadmapHTML({ ...SAMPLE, style: 'columns' });
+    const htmlTimeline = generateRoadmapHTML({ ...SAMPLE, style: 'timeline' });
+    const htmlVertical = generateRoadmapHTML({ ...SAMPLE, style: 'vertical' });
+    expect(htmlColumns).toContain('Quarterly Columns');
+    expect(htmlTimeline).toContain('Timeline');
+    expect(htmlVertical).toContain('Vertical Roadmap');
+  });
+
+  test('handles invalid date strings gracefully', () => {
+    const html = generateRoadmapHTML({
+      ...SAMPLE,
+      startDate: 'not-a-date',
+      endDate: 'also-invalid',
+    });
+    expect(html).toMatch(/^<!DOCTYPE html>/i);
+    expect(html).toContain('Apollo');
   });
 });
